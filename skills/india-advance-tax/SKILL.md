@@ -1,6 +1,6 @@
 ---
 name: india-advance-tax
-description: "Estimate and file India advance tax for salaried + investments."
+description: "Estimate and file India advance tax for salaried investors."
 version: 0.1.0
 author: Sachin Acharya, Hermes Agent
 license: MIT

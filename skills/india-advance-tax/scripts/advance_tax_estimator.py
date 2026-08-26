@@ -122,10 +122,10 @@ def main():
     print("=" * 62)
     print("Ordinary income (salary + RSU perquisite + other):  {:>14,.0f}".format(ordinary_income))
     print("   slab tax (incl. std deduction & 87A rebate):     {:>14,.0f}".format(base_tax))
-    print("Equity STCG tax @20%%:                               {:>14,.0f}".format(a.equity_stcg * EQUITY_STCG_RATE))
-    print("Equity LTCG tax @12.5%% (>1.25L pooled exempt):      {:>14,.0f}".format(
+    print("Equity STCG tax @20%:                               {:>14,.0f}".format(a.equity_stcg * EQUITY_STCG_RATE))
+    print("Equity LTCG tax @12.5% (>1.25L pooled exempt):      {:>14,.0f}".format(
         max(0.0, a.equity_ltcg - EQUITY_LTCG_EXEMPT) * EQUITY_LTCG_RATE))
-    print("Total tax incl. surcharge + 4%% cess:                {:>14,.0f}".format(total_tax))
+    print("Total tax incl. surcharge + 4% cess:                {:>14,.0f}".format(total_tax))
     print("Less TDS + foreign tax credit:                      {:>14,.0f}".format(credits))
     print("NET advance-tax liability:                          {:>14,.0f}".format(net))
     print("-" * 62)
