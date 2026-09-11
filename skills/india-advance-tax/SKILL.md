@@ -1,8 +1,8 @@
 ---
 name: india-advance-tax
 description: "Estimate and file India advance tax for salaried investors."
-version: 0.1.0
-author: Sachin Acharya, Hermes Agent
+version: 0.2.0
+author: Hermes Agent
 license: MIT
 platforms: [linux, macos, windows]
 metadata:
@@ -62,10 +62,11 @@ For the helper estimator: `python3 skills/india-advance-tax/scripts/advance_tax_
 | 15 March | 100% |
 
 - **Capital gains tax rates (FY 2026-27 / AY 2027-28, Budget-2026-unchanged):**
-  - Equity LTCG (listed shares, equity MFs, >12 months): **12.5%** on gains **above ₹1,25,000** (STT paid).
-  - Equity STCG: **20%**.
-  - Debt MF / foreign equity LTCG (>24 months / foreign usually long-term): 12.5% (no indexation for post-23-Jul-2024 purchases).
-  - US stock LTCG typically 24-month holding; report via Schedule FA/FSI in ITR with DTAA credit.
+  - Equity LTCG (listed shares, equity MFs, >12 months): **12.5%** on gains **above ₹1,25,000** (STT paid; exemption pooled across all equity sources for the FY).
+  - Equity STCG (listed shares, STT paid, ≤12 months): **20%**.
+  - Debt MFs / gold ETFs: LTCG after **24 months** at 12.5% (no indexation); STCG at slab.
+  - **Foreign (US) shares — not listed on an Indian exchange: LTCG needs 24 months holding.** Under 24 months = **STCG at slab rate** (30% + surcharge + cess — NOT the 20% equity rate). LTCG (≥24 months) is 12.5% from the first rupee, **no ₹1.25L exemption**. Report via Schedule FA/FSI/TR with DTAA credit.
+  - Effective rates at the 10%-surcharge tier (income ₹50L–1Cr): 111A **22.88%**, 112A **14.30%**, slab **34.32%**.
 - **New regime slabs (FY 2026-27):** 0–4L nil | 4–8L 5% | 8–12L 10% | 12–16L 15% | 16–20L 20% | 20–24L 25% | above 24L 30%. Standard deduction ₹75,000; 87A rebate makes **income up to ~₹12L (new regime) tax-free**.
 - **RSU/ESOP:** taxable as **salary** (perquisite u/s 17(2) / 56(2)(x)) at FMV on **vest date** — employer usually deducts TDS on it. The gain on subsequent **sale** is a separate capital gain.
 - **Interest:** 234B = 1%/month on shortfall if total payment <90% of liability by 31 Mar; 234C = 1%/month for the missed/deferred installments (3 months each for the first three, 1 month for the last). Higher for amounts >₹1 crore.
@@ -98,7 +99,8 @@ Equity STCG tax = 20% × (sale − cost)
 ### Step 3 — Handle RSU / ESOP / US stock income
 
 - **RSU perquisite:** at **vest**, FMV in INR (SBI TT Buy rate on vest date) is added to salary. Employer usually deducts TDS on it via payroll → part of "salary TDS" above. If employer does NOT deduct (rare), it's an unpaid liability → advance tax relevant.
-- **RSU/US-stock sale:** realized gain = sale value − cost basis (FMV at vest for RSU). Report as capital gain. Foreign tax withheld (e.g., US NRA) is claimed as a **foreign tax credit** via DTAA (US: Article 23) — file **Form 67**; it reduces Indian tax, so subtract it from your estimated net liability.
+- **RSU/US-stock sale:** realized gain = sale value − cost basis (FMV at vest for RSU). Report as capital gain. **FX discipline: convert the USD cost basis at the SBI TT Buy rate on the VEST date, and the USD sale proceeds at the SBI TT Buy rate on the SALE date — never reuse the vest rate for the sale.** Using one rate for both is a common tax-software error and misstates the INR gain; rupee depreciation alone can add lakhs.
+- **Foreign tax withheld** (e.g., US NRA) is claimed as a **foreign tax credit** via DTAA (US: Article 23) — file **Form 67**; it reduces Indian tax, so subtract it from your estimated net liability.
 - **Foreign (US) stock dividends:** US 15-30% withholding; credit claimable via DTAA on the Indian return.
 
 ### Step 4 — Estimate the year-end liability and pay installments
@@ -115,9 +117,10 @@ Run the estimator script with your figures, or compute manually:
 ### Step 5 — Pay on the portal
 
 1. Login to https://www.incometax.gov.in → **e-Pay Tax** → **Challan 280**.
-2. Tax Applicable: **Income-tax (Other than companies)** / Assessment Year = current AY.
-3. Type of payment: **Advanced** → submit, net-bank/Card/BHIM.
-4. Save the **BIN + CIN + Challan serial** for your records (matches Form 26AS / challan history).
+2. Tax Applicable: **Income-tax (Other than companies)**. The newer portal labels the period **"Tax Year"** — pick the current FY (e.g., Tax Year 2026-27 = AY 2027-28).
+3. Type of payment: **Advance tax** → continue.
+4. **Pay via net banking, UPI (BHIM/PhonePe), or debit card — free.** Credit card works but the gateway charges ~0.8–1% + GST convenience fee and most issuers give **no reward points** on tax/government payments — only use a card that specifically rewards taxes.
+5. Save the **BIN + CIN + challan serial** for your records (matches Form 26AS / challan history).
 
 ### Step 6 — Verify no interest exposure
 
@@ -130,6 +133,9 @@ Run the estimator script with your figures, or compute manually:
 - **The ₹10,000 threshold is on net tax**, after TDS, not per head and not on gross income.
 - **Missed March RSU / end-of-year gains.** A large Q4 gain or a March RSU sale can create a 234C shortfall for the 15-Mar installment specifically — pay that by 15 Mar regardless of the year's earlier installments.
 - **STCG vs LTCG rates differ sharply (20% vs 12.5% + exemption).** Getting the holding period wrong overestimates tax; under-estimating installments triggers 234C.
+- **Foreign shares are NOT "12-month" assets.** The 12-month LTCG rule applies only to shares listed on a recognised Indian exchange. US/foreign shares held <24 months are **STCG at slab** — misclassifying them as LTCG 12.5% understates the installment and invites 234C; misclassifying as 111A 20% understates too (slab + surcharge is higher).
+- **FX conversion errors in foreign-share gains.** Convert cost and proceeds at their own transaction-date SBI TT Buy rates (vest date for cost, sale date for proceeds). Reusing the acquisition/vest rate for the sale misstates the INR gain — a known tax-software bug.
+- **Surcharge tier comes from TOTAL income, not the gain alone.** Include salary + RSU perquisite before deciding 10% vs 15% vs nil. A salaried filer with a modest RSU year often sits at 10% (₹50L–1Cr), not 15%.
 - **₹1.25L LTCG exemption is pooled** across all equity sources — don't apply it per broker or per MF.
 - **Foreign tax credit needs Form 67** before ITR; without it you can't claim DTAA relief and will overpay. Estimate includes foreign tax paid.
 - **Slab/rate drift.** Rates and the ₹1.25L exemption were unchanged by Budget 2026, but re-verify each Feb/Mar against the latest Union Budget before acting.
@@ -142,6 +148,7 @@ Run the estimator script with your figures, or compute manually:
 2. Form 26AS / challan history lists your advance tax entries (type "Advance tax (self)").
 3. Recompute estimated year-end liability and confirm cumulative paid ≥ 100% (or ≥ 90% for 234B with the rest covered before 31 Mar).
 4. Estimator script returns a schedule identical to the manual table above within rounding.
+5. **Independent recomputation (recommended before paying).** Give a second agent/tool the raw statements (broker taxpnl/P&L, fund-house or CAMS gain statements, foreign-broker transaction summary, employer tax statement) and have it rebuild the computation from source; compare per-line. Reconcile that each gain appears in exactly one source (broker vs CAMS vs foreign custodian) — double counting is the classic multi-source error. Investigate any disagreement beyond ~₹500 before paying.
 
 ## References
 

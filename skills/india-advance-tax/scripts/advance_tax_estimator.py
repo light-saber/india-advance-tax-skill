@@ -100,16 +100,19 @@ def main():
     p.add_argument("--ru-perquisite", type=float, default=0,
                    help="RSU/ESOP perquisite value added to salary at vest (FMV INR).")
     p.add_argument("--equity-stcg", type=float, default=0,
-                   help="Realized equity STCG (<=12 months).")
+                   help="Realized Indian-listed equity STCG (<=12 months, 111A @20%).")
     p.add_argument("--equity-ltcg", type=float, default=0,
-                   help="Realized equity LTCG (>12 months).")
+                   help="Realized equity LTCG (>12 months, 112A @12.5% above pooled exemption).")
+    p.add_argument("--foreign-share-stcg", type=float, default=0,
+                   help="Realized STCG on foreign (US) shares held <24 months - taxed at slab rate, added to ordinary income.")
     p.add_argument("--tds", type=float, default=0,
                    help="TDS already deducted or expected (salary+interest+dividend).")
     p.add_argument("--foreign-tax-credit", type=float, default=0,
                    help="Foreign tax credit (DTAA, e.g. US tax withheld on RSU/US stock).")
     a = p.parse_args()
 
-    ordinary_income = a.salary + a.ru_perquisite + a.other_income
+    # Foreign-share STCG is ordinary (slab-rate) income: NOT 111A/112A special rate.
+    ordinary_income = a.salary + a.ru_perquisite + a.foreign_share_stcg + a.other_income
     base_tax = income_tax(ordinary_income)
     cg_tax = special_rate_tax(a.equity_stcg, a.equity_ltcg)
     total_before_cess = base_tax + cg_tax

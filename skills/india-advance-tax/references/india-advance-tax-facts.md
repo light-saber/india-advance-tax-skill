@@ -1,6 +1,6 @@
 # India Advance Tax — Facts Reference
 
-Verified as of August 2026. Rates/sections are re-checked against the Union Budget each Feb–Mar; Budget 2026 left the LTCG framework unchanged.
+Verified as of September 2026. Rates/sections are re-checked against the Union Budget each Feb–Mar; Budget 2026 left the LTCG framework unchanged.
 
 ## Threshold & trigger
 
@@ -35,18 +35,20 @@ Verified as of August 2026. Rates/sections are re-checked against the Union Budg
 | Equity STCG | ≤ 12 months | 20% |
 | Debt mutual funds | > 24 months | LTCG 12.5% (no indexation for post-23-Jul-2024 units) |
 | Debt STCG | ≤ 24 months | Slab rate |
-| US / international stocks (listed in India) acquired before 1 Apr 2023 | > 24 months | 12.5% (no indexation) |
+| **US / foreign shares (not listed on an Indian exchange)** | **> 24 months** | **LTCG 12.5% (no indexation, NO ₹1.25L exemption)** |
+| **US / foreign shares — short term** | **≤ 24 months** | **Slab rate (NOT 20% equity STCG)** |
 | Unlisted shares | > 24 months | 12.5% |
 
 - The **₹1,25,000 LTCG exemption (s.112A) is pooled across all equity sources** for the FY — broker + MF combined, once.
-- Holding period: 12 months for listed equity; 24 months for debt/foreign/unlisted assets.
+- Holding period: 12 months for listed equity; **24 months for debt/foreign/unlisted assets**.
+- Effective rates at the 10% surcharge tier (total income ₹50L–1Cr): 111A 22.88%, 112A 14.30%, slab 34.32%. At 15% surcharge (₹1Cr–2Cr): 23.92%, 14.95%, 35.88%.
 
 ## RSU / ESOP / US stock treatment
 
 - **RSU vest** → salary perquisite u/s 17(2) / 56(2)(x), valued at **FMV in INR on the vest date** (SBI TT Buy rate). Employer payroll generally deducts TDS → covered by salary TDS.
-- **RSU sale** → capital gain; cost basis = FMV at vest.
+- **RSU sale** → capital gain; cost basis = FMV at vest. **FX: convert cost at the vest-date SBI TT Buy rate and proceeds at the sale-date SBI TT Buy rate** — do not reuse the vest rate for the sale (a common tax-software error that misstates the INR gain).
 - **US-source income & tax** → report in Schedule FSI/FA in ITR; US tax (including the 30%/15% NRA withholding on dividends) claimed as **foreign tax credit** under the India–US DTAA via **Form 67**. Subtract the credit from your estimated net liability.
-- Holding period for foreign (US) shares: 24 months for LTCG (usually long-term).
+- Holding period for foreign (US) shares: **24 months** for LTCG. Under 24 months → **STCG at slab rate** (30% + surcharge + cess).
 
 ## New-regime slab table (FY 2026-27 / AY 2027-28)
 
