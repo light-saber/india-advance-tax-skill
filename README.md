@@ -124,6 +124,17 @@ skills/india-advance-tax/
 
 Rates and the installment schedule were current as of **September 2026** (FY 2026-27 / AY 2027-28). Budget 2026 left the LTCG framework unchanged. Re-verify before each FY.
 
+## Disclaimer
+
+**This skill is an educational tool — not tax, legal, or financial advice.**
+
+- It is provided "as is", without warranty of any kind, express or implied, including fitness for a particular purpose. The authors and contributors accept **no liability** for any tax, interest, penalty, or other loss arising from use of this skill or its outputs.
+- **Rates, slabs, exemptions, and rules change with each Union Budget and with changes in law** (including the transition to the Income-tax Act 2025). The figures here were correct as of the stated verification date only — always re-verify against the latest official sources (incometax.gov.in, income-tax notification, or a qualified professional) before acting.
+- **Individual circumstances matter.** The generic workflow and estimator cannot capture every case — business/professional income, presumptive taxation, older assets with indexation elections, carry-forward losses, residency status, DTAA specifics, and more. What is right for one taxpayer may be wrong for another.
+- **This is not a substitute for a chartered accountant.** For significant amounts, unusual transactions, or high-stakes decisions, consult a qualified professional before paying.
+- **Do not rely on this skill to file your ITR.** It covers advance-tax estimation and payment scheduling only.
+- AI agents using this skill must treat their output as a draft to be verified against source documents and current law — never as a final, binding computation.
+
 ## License
 
 MIT — see [LICENSE](LICENSE).
